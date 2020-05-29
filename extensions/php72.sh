@@ -77,11 +77,11 @@ fi
 
 if [ -z "${EXTENSIONS##*,mongodb,*}" ]; then
     echo "---------- Install mongodb ----------"
-	# apk add --no-cache unixodbc-dev
-    # printf "\n" | pecl install mongodb
-    # docker-php-ext-enable mongodb
-    pear install mongodb-1.7.4.tgz
+	apk add --no-cache unixodbc-dev
+    printf "\n" | pecl install mongodb
     docker-php-ext-enable mongodb
+    # pear install mongodb-1.7.4.tgz
+    # docker-php-ext-enable mongodb
 fi
 
 if [ -z "${EXTENSIONS##*,tideways,*}" ]; then
