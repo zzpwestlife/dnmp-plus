@@ -2,6 +2,6 @@
 .DS_Store
 www/*
 !www/localhost/
-!www/xhgui-branch/
 .php_cs.cache
 .run
+mongo

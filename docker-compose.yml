@@ -6,10 +6,10 @@ services:
       - "${NGINX_HTTP_HOST_PORT}:80"
       - "${NGINX_HTTPS_HOST_PORT}:443"
     volumes:
-      - ${SOURCE_DIR}:/var/www/html/:rw
-      - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:rw
+      - ${SOURCE_DIR}:/var/www/html/:cached
+      - ${NGINX_CONFD_DIR}:/etc/nginx/conf.d/:cached
       - ${NGINX_CONF_FILE}:/etc/nginx/nginx.conf:ro
-      - ${NGINX_LOG_DIR}:/var/log/nginx/:rw
+      - ${NGINX_LOG_DIR}:/var/log/nginx/:cached
     restart: always
     networks:
       mac:
@@ -25,10 +25,10 @@ services:
     #     PHP_EXTENSIONS: ${PHP72_EXTENSIONS}
     #     MORE_EXTENSION_INSTALLER: php72.sh
     volumes:
-      - ${SOURCE_DIR}:/var/www/html/:rw
+      - ${SOURCE_DIR}:/var/www/html/:cached
       - ${PHP72_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
       - ${PHP72_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
-      - ${PHP72_LOG_DIR}:/var/log/php
+      - ${PHP72_LOG_DIR}:/var/log/php:cached
     restart: always
     cap_add:
       - SYS_PTRACE
@@ -36,33 +36,53 @@ services:
       mac:
         ipv4_address: "${PHP_IP}"
 
-  # mysql:
-  #   # image: mysql:${MYSQL_VERSION}
-  #   image: mariadb/server:10.3
-  #   ports:
-  #     - "${MYSQL_HOST_PORT}:3306"
-  #   volumes:
-  #     # - ${MYSQL_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
-  #     - ${MYSQL_DATA_DIR}:/var/lib/mysql/:rw
-  #   restart: always
-  #   networks:
-  #     mac:
-  #       ipv4_address: "${MYSQL_IP}"
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+#  php74:
+#    build:
+#      context: .
+#      args:
+#        PHP_VERSION: ${PHP74_VERSION}
+#        ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
+#        PHP_EXTENSIONS: ${PHP74_EXTENSIONS}
+#        MORE_EXTENSION_INSTALLER: php74.sh
+#    volumes:
+#      - ${SOURCE_DIR}:/var/www/html/:cached
+#      - ${PHP74_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+#      - ${PHP74_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+#      - ${PHP74_LOG_DIR}:/var/log/php:cached
+#    restart: always
+#    cap_add:
+#      - SYS_PTRACE
+#    networks:
+#      mac:
+#        ipv4_address: "${PHP_IP}"
 
-  # redis:
-  #   image: redis:${REDIS_VERSION}
-  #   ports:
-  #     - "${REDIS_HOST_PORT}:6379"
-  #   volumes:
-  #     - ${REDIS_CONF_FILE}:/etc/redis.conf:ro
-  #   restart: always
-  #   entrypoint: ["redis-server", "/etc/redis.conf"]
-  #   networks:
-  #     mac:
-  #       ipv4_address: "${REDIS_IP}"
-    
+    # mysql:
+    #   # image: mysql:${MYSQL_VERSION}
+    #   image: mariadb/server:10.3
+    #   ports:
+    #     - "${MYSQL_HOST_PORT}:3306"
+    #   volumes:
+    #     # - ${MYSQL_CONF_FILE}:/etc/mysql/conf.d/mysql.cnf:ro
+    #     - ${MYSQL_DATA_DIR}:/var/lib/mysql/:rw
+    #   restart: always
+    #   networks:
+    #     mac:
+    #       ipv4_address: "${MYSQL_IP}"
+    #   environment:
+    #     MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
+
+    # redis:
+    #   image: redis:${REDIS_VERSION}
+    #   ports:
+    #     - "${REDIS_HOST_PORT}:6379"
+    #   volumes:
+    #     - ${REDIS_CONF_FILE}:/etc/redis.conf:ro
+    #   restart: always
+    #   entrypoint: ["redis-server", "/etc/redis.conf"]
+    #   networks:
+    #     mac:
+    #       ipv4_address: "${REDIS_IP}"
+
 
   # phpmyadmin:
   #   image: phpmyadmin/phpmyadmin:latest
