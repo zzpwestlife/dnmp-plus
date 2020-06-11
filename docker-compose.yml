@@ -36,25 +36,25 @@ services:
       mac:
         ipv4_address: "${PHP_IP}"
 
-#  php74:
-#    build:
-#      context: .
-#      args:
-#        PHP_VERSION: ${PHP74_VERSION}
-#        ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
-#        PHP_EXTENSIONS: ${PHP74_EXTENSIONS}
-#        MORE_EXTENSION_INSTALLER: php74.sh
-#    volumes:
-#      - ${SOURCE_DIR}:/var/www/html/:cached
-#      - ${PHP74_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
-#      - ${PHP74_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
-#      - ${PHP74_LOG_DIR}:/var/log/php:cached
-#    restart: always
-#    cap_add:
-#      - SYS_PTRACE
-#    networks:
-#      mac:
-#        ipv4_address: "${PHP_IP}"
+    #  php74:
+    #    build:
+    #      context: .
+    #      args:
+    #        PHP_VERSION: ${PHP74_VERSION}
+    #        ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
+    #        PHP_EXTENSIONS: ${PHP74_EXTENSIONS}
+    #        MORE_EXTENSION_INSTALLER: php74.sh
+    #    volumes:
+    #      - ${SOURCE_DIR}:/var/www/html/:cached
+    #      - ${PHP74_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+    #      - ${PHP74_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
+    #      - ${PHP74_LOG_DIR}:/var/log/php:cached
+    #    restart: always
+    #    cap_add:
+    #      - SYS_PTRACE
+    #    networks:
+    #      mac:
+    #        ipv4_address: "${PHP_IP}"
 
     # mysql:
     #   # image: mysql:${MYSQL_VERSION}
