@@ -18,4 +18,7 @@ RUN export MC="-j$(nproc)" \
     && sh "${MORE_EXTENSION_INSTALLER}" \
     && rm -rf /tmp/extensions
 
+# install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 WORKDIR /var/www/html

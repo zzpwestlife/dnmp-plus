@@ -16,17 +16,17 @@ services:
         ipv4_address: "${NGINX_IP}"
 
   php72:
-    image: zzpwestlife/dnmp-plus_php72:v1.1-xdebug
-    # build:
-    #   context: .
-    #   args:
-    #     PHP_VERSION: ${PHP72_VERSION}
-    #     ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
-    #     PHP_EXTENSIONS: ${PHP72_EXTENSIONS}
-    #     MORE_EXTENSION_INSTALLER: php72.sh
+        image: zzpwestlife/dnmp-plus_php72:v1.1-xdebug
+#    build:
+#      context: .
+#      args:
+#        PHP_VERSION: ${PHP72_VERSION}
+#        ALPINE_REPOSITORIES: ${ALPINE_REPOSITORIES}
+#        PHP_EXTENSIONS: ${PHP72_EXTENSIONS}
+#        MORE_EXTENSION_INSTALLER: php72.sh
     volumes:
       - ${SOURCE_DIR}:/var/www/html/:cached
-      - ${PHP72_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:ro
+      - ${PHP72_PHP_CONF_FILE}:/usr/local/etc/php/php.ini:rw
       - ${PHP72_FPM_CONF_FILE}:/usr/local/etc/php-fpm.d/www.conf:rw
       - ${PHP72_LOG_DIR}:/var/log/php:cached
     restart: always
